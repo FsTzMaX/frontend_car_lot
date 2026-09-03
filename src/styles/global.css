@@ -1141,3 +1141,9 @@ button {
   padding: 8px;
 }
 .admin-images__item button:hover { background: var(--bg-elevated); }
+
+/* Normaliza mayúsculas/minúsculas del color mostrado, sin tocar los datos */
+.car-card__specs span,
+.spec-table__value {
+  text-transform: capitalize;
+}

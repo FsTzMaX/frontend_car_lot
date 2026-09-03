@@ -74,8 +74,13 @@ export default function VehicleForm() {
     setSaving(true);
     setError('');
 
+    const normalizedColor = form.color.trim()
+      ? form.color.trim().charAt(0).toUpperCase() + form.color.trim().slice(1).toLowerCase()
+      : '';
+
     const payload = {
       ...form,
+      color: normalizedColor,
       brandId: Number(form.brandId),
       typeId: Number(form.typeId),
       year: Number(form.year),
