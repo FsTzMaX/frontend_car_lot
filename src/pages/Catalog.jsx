@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import { api } from '../api';
 import VehicleCard from '../components/VehicleCard';
 import FilterBar from '../components/FilterBar';
@@ -13,6 +13,7 @@ export default function Catalog() {
   const [types, setTypes] = useState([]);
   const [filters, setFilters] = useState(EMPTY_FILTERS);
   const [status, setStatus] = useState('loading'); // loading | ready | error
+  const [sortBy, setSortBy] = useState('');
 
   useEffect(() => {
     api.getBrands().then(setBrands).catch(() => {});
@@ -36,6 +37,12 @@ export default function Catalog() {
     return () => clearTimeout(timeout);
   }, [loadVehicles]);
 
+  const sortedVehicles = useMemo(() => {
+    if (sortBy === 'price_asc') return [...vehicles].sort((a, b) => Number(a.price) - Number(b.price));
+    if (sortBy === 'price_desc') return [...vehicles].sort((a, b) => Number(b.price) - Number(a.price));
+    return vehicles;
+  }, [vehicles, sortBy]);
+
   return (
     <>
       <section className="hero" style={{ '--hero-bg': `url(${heroBg})` }}>
@@ -53,9 +60,11 @@ export default function Catalog() {
         <FilterBar
           filters={filters}
           onChange={setFilters}
-          onReset={() => setFilters(EMPTY_FILTERS)}
+          onReset={() => { setFilters(EMPTY_FILTERS); setSortBy(''); }}
           brands={brands}
           types={types}
+          sortBy={sortBy}
+          onSortChange={setSortBy}
         />
 
         <div className="results-bar">
@@ -86,7 +95,7 @@ export default function Catalog() {
 
         {status === 'ready' && vehicles.length > 0 && (
           <div className="grid">
-            {vehicles.map((v) => (
+            {sortedVehicles.map((v) => (
               <VehicleCard key={v.id} vehicle={v} />
             ))}
           </div>

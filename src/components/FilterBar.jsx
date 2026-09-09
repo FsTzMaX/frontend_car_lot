@@ -1,4 +1,4 @@
-export default function FilterBar({ filters, onChange, onReset, brands, types }) {
+export default function FilterBar({ filters, onChange, onReset, brands, types, sortBy, onSortChange }) {
   const set = (key) => (e) => onChange({ ...filters, [key]: e.target.value });
 
   return (
@@ -10,7 +10,7 @@ export default function FilterBar({ filters, onChange, onReset, brands, types })
           <input
             id="search"
             type="text"
-            placeholder="Modelo, VIN o folio..."
+            placeholder="Modelo o folio..."
             value={filters.search}
             onChange={set('search')}
           />
@@ -54,6 +54,15 @@ export default function FilterBar({ filters, onChange, onReset, brands, types })
             value={filters.maxPrice}
             onChange={set('maxPrice')}
           />
+        </div>
+
+        <div className="field">
+          <label htmlFor="sortBy">Ordenar por</label>
+          <select id="sortBy" value={sortBy} onChange={(e) => onSortChange(e.target.value)}>
+            <option value="">Relevancia</option>
+            <option value="price_asc">Precio: menor a mayor</option>
+            <option value="price_desc">Precio: mayor a menor</option>
+          </select>
         </div>
 
         <button className="filters__reset" onClick={onReset} type="button">
