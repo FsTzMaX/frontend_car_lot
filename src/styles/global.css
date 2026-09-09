@@ -88,7 +88,7 @@ button {
 }
 
 .brand__logo {
-  height: 52px;
+  height: 72px;
   width: auto;
   display: block;
 }
@@ -344,7 +344,7 @@ button {
 --------------------------------------------------------------------------- */
 .car-card {
   background: var(--bg-card);
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: var(--radius);
   overflow: hidden;
   display: flex;
@@ -1146,4 +1146,50 @@ button {
 .car-card__specs span,
 .spec-table__value {
   text-transform: capitalize;
+}
+
+
+/* ---------------------------------------------------------------------------
+   AJUSTES MOBILE — pantallas de celular muy angostas
+--------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .site-header__inner {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 12px 0;
+  }
+
+  .brand__logo {
+    height: 48px;
+  }
+
+  .hero {
+    padding: 80px 0 40px;
+  }
+
+  .filters {
+    padding: 14px;
+  }
+
+  .filters__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filters__reset {
+    width: 100%;
+  }
+
+  .results-bar {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 }
